@@ -319,13 +319,14 @@ $query=mysqli_query($conn,"select * from items LIMIT $start, $limit");
 
 while($query2=mysqli_fetch_array($query))
 {
-	// TODO: SUM
+	// TODO: SUM ORDERED
 	include("config.php");
 	$format="select sum(order_quantity) as remain from orderdetails where order_status='Ordered' and order_name='%s'";
 	$stmt_edit = $DB_con->prepare(sprintf($format, $query2['item_name']));
 	$stmt_edit->execute();
 	$edit_row = $stmt_edit->fetch(PDO::FETCH_ASSOC);
 	extract($edit_row);
+	// END SUM ORDERED
 	
 	echo "<div class='col-sm-3'><div class='panel panel-default' style='border-color:#008CBA;'>
             <div class='panel-heading' style='color:white;background-color : #033c73;'>
