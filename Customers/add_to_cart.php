@@ -172,7 +172,19 @@ if(!$_SESSION['user_email'])
         </td>
 		
 		 <tr>
-    	<td><label class="control-label">Quantity.</label></td>
+    	<td>
+            <?php
+                // TODO: SUM
+                include("config.php");
+                $format="select sum(order_quantity) as remain from orderdetails where order_status='Ordered' and order_name='%s'";
+                $stmt_edit = $DB_con->prepare(sprintf($format, $item_name));
+                $stmt_edit->execute();
+                $edit_row = $stmt_edit->fetch(PDO::FETCH_ASSOC);
+                extract($edit_row);
+            ?>
+            <label class="control-label">Quantity.</label> <br>
+            <label class="control-label">Remain: <?php echo $quanlity - $remain;?></label>
+        </td>
         <td><input class="form-control" type="text" placeholder="Quantity" name="order_quantity" value="1" onkeypress="return isNumber(event)" onpaste="return false"  required />
 		
 			

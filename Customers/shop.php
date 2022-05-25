@@ -319,6 +319,13 @@ $query=mysqli_query($conn,"select * from items LIMIT $start, $limit");
 
 while($query2=mysqli_fetch_array($query))
 {
+	// TODO: SUM
+	include("config.php");
+	$format="select sum(order_quantity) as remain from orderdetails where order_status='Ordered' and order_name='%s'";
+	$stmt_edit = $DB_con->prepare(sprintf($format, $query2['item_name']));
+	$stmt_edit->execute();
+	$edit_row = $stmt_edit->fetch(PDO::FETCH_ASSOC);
+	extract($edit_row);
 	
 	echo "<div class='col-sm-3'><div class='panel panel-default' style='border-color:#008CBA;'>
             <div class='panel-heading' style='color:white;background-color : #033c73;'>
@@ -334,7 +341,7 @@ while($query2=mysqli_fetch_array($query))
 				
 					
 					<center><h4> Price: &#8369; ".$query2['item_price']." </h4></center>
-					<center><h4> Quanlity: ".$query2['quanlity']." </h4></center>
+					<center><h4> Quanlity: ".$query2['quanlity'] - $remain." </h4></center>
 		
 					
 										<a class='btn btn-block btn-danger' href='add_to_cart.php?cart=".$query2['item_id']."'><span class='glyphicon glyphicon-shopping-cart'></span> Add to cart</a>
