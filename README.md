@@ -7,7 +7,7 @@ This repository used for sharing edited code between me and friends for learning
 
 #### Edited Logs List
 - [database/edgedata.sql](./database/edgedata.sql)
-- [Admin/items.php](./Admin/items.php)
-- [Admin/edititem.php](./Admin/edititem.php)
+- [Admin/items.php](./Admin/items.php) <--- Required Clone to Open (*Cannot Read form github.com*)
+- [Admin/edititem.php](./Admin/edititem.php) <--- Required Clone to Open (*Cannot Read form github.com*)
 - [Customers/shop.php](./Customers/shop.php)
 - [Customers/add_to_cart.php](./Customers/add_to_cart.php)
