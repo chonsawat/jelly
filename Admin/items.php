@@ -135,7 +135,14 @@ include("config.php");
 		while($row=$stmt->fetch(PDO::FETCH_ASSOC))
 		{
 			extract($row);
-			
+			// TODO: SUM ORDERED
+            include("config.php");
+            $format="select sum(order_quantity) as remain from orderdetails where order_status='Ordered' and order_name='%s'";
+            $stmt_edit = $DB_con->prepare(sprintf($format, $item_name));
+            $stmt_edit->execute();
+            $edit_row = $stmt_edit->fetch(PDO::FETCH_ASSOC);
+            extract($edit_row);
+            // END SUM ORDERED
 			
 			?>
                 <tr>
@@ -145,7 +152,7 @@ include("config.php");
                  <td><?php echo $item_name; ?></td>
 				 <!-- <td>&#8369; <?php echo $item_price; ?></td> -->
 				 <td><?php echo $item_date; ?></td>
-                 <td><?php echo $quanlity; ?></td>
+                 <td><?php echo $quanlity - $remain; ?></td>
 				 
 				 <td>
 				

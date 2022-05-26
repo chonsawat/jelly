@@ -188,6 +188,14 @@ if(!$_SESSION['admin_username'])
        
         <?php
 	}
+    // TODO: SUM ORDERED
+	include("config.php");
+	$format="select sum(order_quantity) as remain from orderdetails where order_status='Ordered' and order_name='%s'";
+	$stmt_edit = $DB_con->prepare(sprintf($format, $item_name));
+	$stmt_edit->execute();
+	$edit_row = $stmt_edit->fetch(PDO::FETCH_ASSOC);
+	extract($edit_row);
+	// END SUM ORDERED
 	?>
 			 <div class="alert alert-info">
                         
@@ -208,7 +216,10 @@ if(!$_SESSION['admin_username'])
     </tr>
 	
     <tr>
-    	<td><label class="control-label">Quanlity.</label></td>
+    	<td>
+            <label class="control-label">Quanlity.</label> <br>
+    	    <label class="control-label">(Current use: <?php echo $remain ?>)</label>
+        </td>
         <td><input id="inputprice" class="form-control" type="text" name="quanlity" value="<?php echo $quanlity; ?>" required /></td>
     </tr>
 	
